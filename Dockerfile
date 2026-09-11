@@ -1,7 +1,7 @@
 FROM python:3.13-slim
 
 # 1. ติดตั้ง AWS Lambda Web Adapter (ทำงานอัตโนมัติเมื่อรันบน Lambda, ไม่มีผลเมื่อรัน Local)
-COPY --from=public.ecr.aws/awslabs/aws-lambda-web-adapter:0.8.4 /lambda-adapter /opt/extensions/lambda-adapter
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.4 /lambda-adapter /opt/extensions/lambda-adapter
 
 # 2. ดึง uv binary
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/

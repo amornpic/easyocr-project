@@ -25,6 +25,7 @@ provider "aws" {
       lambda = var.floci_endpoint
       iam    = var.floci_endpoint
       logs   = var.floci_endpoint
+      sts    = var.floci_endpoint
     }
   }
 
@@ -37,8 +38,6 @@ provider "aws" {
   }
 }
 
-
-data "aws_caller_identity" "current" {}
 
 # -----------------------------------------------------------------------------
 # 1. ECR Repository (จัดเก็บ Docker Image)
@@ -156,8 +155,10 @@ resource "aws_lambda_function_url" "ocr_url" {
   }
 }
 
-# เปิดสิทธิ์ Public เข้าถึง Function URL
+# เปิดสิทธิ์ Public เข้าถึง Function URL (จำเป็นสำหรับ AWS จริง แต่ Floci จะสร้างให้อัตโนมัติอยู่แล้ว)
 resource "aws_lambda_permission" "public_function_url" {
+  count = var.floci_endpoint != "" ? 0 : 1
+
   statement_id           = "FunctionURLAllowPublicAccess"
   action                 = "lambda:InvokeFunctionUrl"
   function_name          = aws_lambda_function.ocr_function.function_name
