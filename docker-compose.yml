@@ -1,0 +1,14 @@
+services:
+  ocr-api:
+    build: .
+    container_name: easyocr_fastapi_container
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount โฟลเดอร์แคชโมเดลเพื่อไม่ต้องโหลด Weight ใหม่เมื่อสั่ง Rebuild
+      - easyocr_model_cache:/root/.EasyOCR
+    environment:
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  easyocr_model_cache:

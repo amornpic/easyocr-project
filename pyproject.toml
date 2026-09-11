@@ -1,0 +1,20 @@
+[project]
+name = "easyocr-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "amornpic", email = "amornpic09@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "easyocr>=1.7.2",
+    "fastapi>=0.141.1",
+    "opencv-python-headless>=5.0.0.93",
+    "python-multipart>=0.0.32",
+    "uvicorn[standard]>=0.52.4",
+]
+
+[tool.uv]
+package = false
+
