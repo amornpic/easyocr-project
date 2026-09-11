@@ -174,9 +174,23 @@ curl -X POST "http://localhost:8000/api/v1/ocr" \
 
 ---
 
+## ☁️ การ Deploy ขึ้น AWS Lambda ด้วย Terraform (เน้นประหยัด Cost)
+
+โปรเจกต์นี้มีชุดคำสั่ง **Terraform** สำหรับ Deploy ขึ้น **AWS Lambda (Container Image) + Lambda Function URL** อยู่ในโฟลเดอร์ [terraform/](file:///Users/amornpic/code/easyocr-project/terraform/):
+
+- **Free HTTPS Endpoint:** ใช้ Lambda Function URL แทน API Gateway (ประหยัดค่า API Gateway 100%)
+- **ARM64 Architecture:** ประมวลผลบน Graviton ประหยัดกว่า x86_64 ถึง 20%
+- **Pre-baked Model Image:** อบโมเดลไว้ใน Docker Image ป้องกันปัญหา Read-only และลดเวลา Cold Start
+- **Auto Image Cleanup:** ตั้ง ECR Lifecycle Policy เก็บเพียง 2 Images ล่าสุด ประหยัดค่า Storage
+
+📖 ดูขั้นตอนการ Deploy อย่างละเอียดได้ที่ [terraform/README.md](file:///Users/amornpic/code/easyocr-project/terraform/README.md)
+
+---
+
 ## ⚙️ การตั้งค่าเพิ่มเติม (Configuration)
 
 หากต้องการเปลี่ยนภาษาหรือเปิดใช้งาน GPU สามารถปรับแต่งได้ในไฟล์ app/main.py
+
 
 ```python
 # ตัวอย่าง: ปรับเปลี่ยนภาษาที่รองรับ และเปิดใช้งาน GPU หากเครื่องมี CUDA

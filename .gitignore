@@ -8,3 +8,12 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+[0-9]*.backup
+terraform.tfvars
+
